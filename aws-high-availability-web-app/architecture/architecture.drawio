@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2026-08-17T00:00:00.000Z" agent="Mozilla/5.0" version="24.7.17" type="device">
+  <diagram id="phase3-ha-web" name="Phase 3 HA Web App">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="internet" value="Internet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="40" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="albs" value="ALB Security Group&#xa;HTTP 80 from Internet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="440" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="alb" value="Application Load Balancer&#xa;phase3-alb&#xa;Internet-facing, IPv4&#xa;Listener HTTP :80" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="240" width="380" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="tg" value="Target Group&#xa;phase3-web-tg&#xa;HTTP :80&#xa;Health check / (200)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="395" y="380" width="370" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="az1" value="Availability Zone A&#xa;EC2 web node" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="210" y="550" width="260" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="az2" value="Availability Zone B&#xa;EC2 web node" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="700" y="550" width="260" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="asg" value="Auto Scaling Group&#xa;phase3-web-asg&#xa;Desired 2 | Min 1 | Max 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#5b9bd5;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="720" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="lt" value="Launch Template&#xa;phase3-web-lt&#xa;EC2 configuration + User Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf4ea;strokeColor=#70ad47;" vertex="1" parent="1">
+          <mxGeometry x="390" y="850" width="380" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" target="albs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="albs" target="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="alb" target="tg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="tg" target="az1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="tg" target="az2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="asg" target="az1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="asg" target="az2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="lt" target="asg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="sgnote" value="EC2 Security Group: SSH 22 from My IP; HTTP 80 from ALB Security Group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="380" y="500" width="400" height="50" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
