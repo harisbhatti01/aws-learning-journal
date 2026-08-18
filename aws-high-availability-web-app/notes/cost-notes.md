@@ -74,6 +74,3 @@ These were terminated after validation.
 
 Billing and Cost Management access may be unavailable to an IAM user even when the user has broad AWS service permissions. The account-level IAM access to billing setting may need to be enabled from the account/root side before a final cost screenshot can be captured.
 
-## Final verification
-
-The final billing check should confirm that the Phase 3 runtime resources are no longer active and that there are no unexpected resources continuing to generate charges.
