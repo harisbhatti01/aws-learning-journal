@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" modified="2026-08-26T00:00:00.000Z" agent="ChatGPT" version="24.7.17">
+  <diagram id="phase4" name="Multi-AZ Secure AWS VPC">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="internet" value="INTERNET" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1f2937;fontColor=#ffffff;fontStyle=1;strokeColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="680" y="30" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="igw" value="Internet Gateway&#xa;phase4-igw" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="130" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" target="igw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" />
+
+        <mxCell id="vpc" value="phase4-vpc&#xa;10.0.0.0/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#6b7280;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="250" width="1240" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="igw" target="vpc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" />
+
+        <mxCell id="az1" value="Availability Zone A" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9ca3af;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="320" width="560" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="az2" value="Availability Zone B" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9ca3af;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="320" width="560" height="480" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pubA" value="Public-A&#xa;10.0.1.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;" vertex="1" parent="1">
+          <mxGeometry x="220" y="380" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="privA" value="Private-A&#xa;10.0.2.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;" vertex="1" parent="1">
+          <mxGeometry x="490" y="380" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="pubB" value="Public-B&#xa;10.0.3.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;" vertex="1" parent="1">
+          <mxGeometry x="820" y="380" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="privB" value="Private-B&#xa;10.0.4.0/24" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="380" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="alb" value="Application Load Balancer&#xa;Internet-facing&#xa;phase4 ALB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="530" width="340" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="igw" target="alb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" />
+
+        <mxCell id="appA" value="ASG EC2&#xa;Private-A&#xa;Nginx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;" vertex="1" parent="1">
+          <mxGeometry x="490" y="660" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="appB" value="ASG EC2&#xa;Private-B&#xa;Nginx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;" vertex="1" parent="1">
+          <mxGeometry x="890" y="660" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="alb" target="appA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" />
+        <mxCell id="e5" edge="1" parent="1" source="alb" target="appB" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" />
+
+        <mxCell id="nat" value="NAT Gateway&#xa;phase4-nat" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="520" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="appB" target="nat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;" />
+        <mxCell id="e7" edge="1" parent="1" source="nat" target="igw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;" />
+
+        <mxCell id="rts" value="Routing&#xa;Public RT: 0.0.0.0/0 → IGW&#xa;Private RT: 0.0.0.0/0 → NAT&#xa;VPC local: 10.0.0.0/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3f4f6;strokeColor=#6b7280;" vertex="1" parent="1">
+          <mxGeometry x="220" y="680" width="230" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sec" value="Security&#xa;ALB SG → Internet HTTP&#xa;App SG → HTTP from ALB SG&#xa;NACLs → subnet-level filtering" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fee2e2;strokeColor=#dc2626;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="660" width="210" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
